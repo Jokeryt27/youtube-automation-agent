@@ -1,1 +1,1 @@
-# No third-party dependencies required for Step 2.\n
+# Step 3 uses Python standard library only.\n

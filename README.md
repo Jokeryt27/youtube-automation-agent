@@ -1,36 +1,41 @@
-# YouTube Automation Agent — Step 2
+# YouTube Automation Agent — Step 3
 
-Research-first YouTube workflow.
+Research → AI Content Package.
 
-## Pipeline
+## Output
 
-Topic → Research → Sources → Script → Titles → Description → Tags → Thumbnail Prompt → Human Review → Optional Upload
+The agent generates:
 
-## Preview mode
+- Complete YouTube script
+- 5 title options
+- Description
+- Tags
+- Thumbnail prompt
 
-No API key is needed:
+## Preview test
 
 ```bash
 python agent.py --preview "BGMI 4.3 Update"
 ```
 
-## Live research
+With research JSON:
 
-The research adapter expects a search API endpoint that returns JSON with a `results` array. Each result can contain:
-
-- `title`
-- `url`
-- `snippet` or `description`
-
-Set these locally as environment variables:
-
-```text
-SEARCH_API_URL=
-SEARCH_API_KEY=
+```bash
+python agent.py --preview "BGMI 4.3 Update" research.json
 ```
 
-Never commit real API keys to GitHub.
+## Live AI generation
 
-## Safety
+Set these locally:
 
-Research is supporting evidence, not automatic fact approval. Review sources, dates, and claims before publishing.
+```text
+OPENAI_API_KEY=
+OPENAI_API_URL=https://api.openai.com/v1/chat/completions
+OPENAI_MODEL=gpt-4.1-mini
+```
+
+Never commit a real API key to GitHub.
+
+## Review
+
+Generated content is a draft. Verify research, dates, claims, names, numbers and source links before publishing.

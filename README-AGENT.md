@@ -1,18 +1,18 @@
 # Agent Plan
 
-## Current workflow
+## Current pipeline
 
-1. Accept a topic.
-2. Research the topic.
-3. Collect source titles, URLs, and snippets.
-4. Review source quality and dates.
-5. Generate a structured script from verified research.
-6. Generate titles, description, tags, and thumbnail prompt.
-7. Human review.
-8. Optional YouTube upload.
+1. Topic
+2. Research
+3. Source review
+4. AI script generation
+5. Five title options
+6. Description
+7. Tags
+8. Thumbnail prompt
+9. Human review
+10. Optional YouTube upload
 
-## Security
+## Rule
 
-- Keep secrets in environment variables.
-- Never commit API keys.
-- Keep human approval before publishing.
+No automatic publishing without human approval.
