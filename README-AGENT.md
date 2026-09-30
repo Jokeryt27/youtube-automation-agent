@@ -5,14 +5,20 @@
 1. Topic
 2. Research
 3. Source review
-4. AI script generation
-5. Five title options
+4. AI script
+5. Titles
 6. Description
 7. Tags
-8. Thumbnail prompt
+8. Thumbnail plan
 9. Human review
 10. Optional YouTube upload
 
-## Rule
+## Human approval
 
-No automatic publishing without human approval.
+Before any publishing action, the user reviews:
+- research
+- script
+- title
+- description
+- tags
+- thumbnail

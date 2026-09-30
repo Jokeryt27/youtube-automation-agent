@@ -1,41 +1,28 @@
-# YouTube Automation Agent — Step 3
+# YouTube Automation Agent — Step 4
 
-Research → AI Content Package.
+## Thumbnail + Human Review
 
-## Output
+The project now produces a structured thumbnail plan:
 
-The agent generates:
+- 16:9 aspect ratio
+- Main visual concept
+- Short thumbnail text
+- Image-generation prompt
+- Human review checklist
 
-- Complete YouTube script
-- 5 title options
-- Description
-- Tags
-- Thumbnail prompt
-
-## Preview test
+## Test
 
 ```bash
-python agent.py --preview "BGMI 4.3 Update"
+python thumbnail.py "BGMI 4.3 Update" "BGMI 4.3 Update — What's New?"
 ```
 
-With research JSON:
+## Review before publishing
 
-```bash
-python agent.py --preview "BGMI 4.3 Update" research.json
-```
+Check that the thumbnail:
+1. Is readable on a phone.
+2. Matches the actual video.
+3. Does not invent people, logos, numbers or claims.
+4. Is not misleading.
+5. Has correct spelling.
 
-## Live AI generation
-
-Set these locally:
-
-```text
-OPENAI_API_KEY=
-OPENAI_API_URL=https://api.openai.com/v1/chat/completions
-OPENAI_MODEL=gpt-4.1-mini
-```
-
-Never commit a real API key to GitHub.
-
-## Review
-
-Generated content is a draft. Verify research, dates, claims, names, numbers and source links before publishing.
+The agent does not publish the thumbnail automatically.
