@@ -1,28 +1,40 @@
-# YouTube Automation Agent — Step 4
+# YouTube Automation Agent — Step 5
 
-## Thumbnail + Human Review
+## Safe YouTube Upload
 
-The project now produces a structured thumbnail plan:
+This step adds a YouTube upload adapter with an important safety default:
 
-- 16:9 aspect ratio
-- Main visual concept
-- Short thumbnail text
-- Image-generation prompt
-- Human review checklist
+**Every upload is PRIVATE.**
 
-## Test
+The project does not automatically publish videos.
 
-```bash
-python thumbnail.py "BGMI 4.3 Update" "BGMI 4.3 Update — What's New?"
+## Required local environment
+
+```text
+YOUTUBE_ACCESS_TOKEN=
+YOUTUBE_TAGS=
 ```
 
-## Review before publishing
+Never put a real token in GitHub.
 
-Check that the thumbnail:
-1. Is readable on a phone.
-2. Matches the actual video.
-3. Does not invent people, logos, numbers or claims.
-4. Is not misleading.
-5. Has correct spelling.
+## Test the adapter
 
-The agent does not publish the thumbnail automatically.
+```bash
+python youtube_upload.py video.mp4 "My Video Title" "My description"
+```
+
+The current adapter validates the video and prints the upload metadata. It intentionally does not perform a public upload.
+
+## Production OAuth
+
+For a real YouTube upload, configure Google/YouTube OAuth 2.0 locally and use the official YouTube Data API resumable upload flow. Store credentials outside the repository.
+
+## Recommended workflow
+
+1. Generate content.
+2. Review research.
+3. Review script/title/thumbnail.
+4. Prepare video.
+5. Upload as PRIVATE.
+6. User checks the uploaded video in YouTube Studio.
+7. Only then change visibility manually or through a separately approved action.
