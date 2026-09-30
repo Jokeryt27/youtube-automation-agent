@@ -1,19 +1,13 @@
-# Agent Plan — Step 7
+# Agent Plan — Step 8
 
-## AI providers
+1. Topic
+2. Research
+3. AI generation
+4. Controlled provider fallback
+5. Titles/SEO
+6. Thumbnail
+7. Human review
+8. Private YouTube upload
+9. Final user approval
 
-1. OpenAI
-2. Google Gemini
-3. Anthropic
-
-## Provider routing
-
-AI_PROVIDER chooses the active provider.
-
-## Future upgrade
-
-Add an optional fallback chain:
-
-Primary provider → retry → secondary provider → human review
-
-Do not silently switch providers for paid API calls without explicit configuration.
+Fallback order is explicitly configured by the user.

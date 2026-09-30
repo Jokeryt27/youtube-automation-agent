@@ -1,42 +1,37 @@
-# YouTube Automation Agent — Step 7
+# YouTube Automation Agent — Step 8
 
-## Multi-AI Provider System
+## Controlled AI fallback
 
-The agent is no longer tied to OpenAI.
+The agent can try multiple AI providers in a user-defined order.
 
-Set:
-
-```text
-AI_PROVIDER=gemini
-```
-
-or:
+Example:
 
 ```text
-AI_PROVIDER=openai
+AI_PROVIDER_CHAIN=gemini,openai,anthropic
+AI_MAX_ATTEMPTS=3
 ```
 
-or:
+Flow:
+
+**Gemini fails → OpenAI → Claude → Human review if all fail**
+
+### Cost control
+
+`AI_MAX_ATTEMPTS` limits how many providers can be called.
+
+Example:
 
 ```text
-AI_PROVIDER=anthropic
+AI_PROVIDER_CHAIN=gemini,openai,anthropic
+AI_MAX_ATTEMPTS=2
 ```
 
-Each provider has its own API key and model setting.
+Only Gemini and OpenAI can be attempted.
 
-## Example
+### Important
 
-```bash
-python ai_router.py "Create 3 hooks for a BGMI YouTube video."
-```
-
-## Important
-
-- API keys must stay local and must never be committed to GitHub.
-- Model names are configurable; use a model currently available in your provider account.
-- This router does not automatically switch providers after an error. That can be added later as a controlled fallback.
-- Human review remains part of the publishing workflow.
-
-## Suggested architecture
-
-Research/Search → AI Router → Script/Titles/SEO → Thumbnail → Human Review → Private YouTube Upload
+- Fallback is opt-in through configuration.
+- Providers are never silently added.
+- API keys remain local.
+- A failed AI chain does not trigger YouTube publishing.
+- The system does not estimate or guarantee API costs; check each provider's current pricing and limits.
