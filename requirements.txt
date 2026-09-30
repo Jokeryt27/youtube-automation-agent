@@ -1,1 +1,1 @@
-# Step 5 starter uses Python standard library only.\n
+# Step 7 uses Python standard library only.

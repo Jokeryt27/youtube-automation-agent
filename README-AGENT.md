@@ -1,22 +1,19 @@
-# Agent Plan
+# Agent Plan — Step 7
 
-1. Topic
-2. Research
-3. Source review
-4. Script
-5. Titles
-6. Description
-7. Tags
-8. Thumbnail
-9. Human review
-10. Prepare YouTube upload
-11. Upload as PRIVATE
-12. User verifies in YouTube Studio
-13. Optional approved publishing action
+## AI providers
 
-## Security
+1. OpenAI
+2. Google Gemini
+3. Anthropic
 
-- OAuth tokens stay local.
-- Never commit secrets.
-- Private upload is the default.
-- No automatic public publishing.
+## Provider routing
+
+AI_PROVIDER chooses the active provider.
+
+## Future upgrade
+
+Add an optional fallback chain:
+
+Primary provider → retry → secondary provider → human review
+
+Do not silently switch providers for paid API calls without explicit configuration.

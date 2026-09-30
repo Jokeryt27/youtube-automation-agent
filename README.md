@@ -1,17 +1,42 @@
-# Step 6 — End-to-End Test
+# YouTube Automation Agent — Step 7
 
-The test harness checks:
-- content preview generation
-- exactly 5 title options
-- script/description/tags/thumbnail prompt
-- 16:9 thumbnail planning
-- human-review checklist
-- upload safety when no YouTube token is configured
+## Multi-AI Provider System
 
-Run after extracting Step 5 next to the Step 6 folder:
+The agent is no longer tied to OpenAI.
 
-```bash
-python run_tests.py
+Set:
+
+```text
+AI_PROVIDER=gemini
 ```
 
-A real YouTube upload is NOT performed by this test.
+or:
+
+```text
+AI_PROVIDER=openai
+```
+
+or:
+
+```text
+AI_PROVIDER=anthropic
+```
+
+Each provider has its own API key and model setting.
+
+## Example
+
+```bash
+python ai_router.py "Create 3 hooks for a BGMI YouTube video."
+```
+
+## Important
+
+- API keys must stay local and must never be committed to GitHub.
+- Model names are configurable; use a model currently available in your provider account.
+- This router does not automatically switch providers after an error. That can be added later as a controlled fallback.
+- Human review remains part of the publishing workflow.
+
+## Suggested architecture
+
+Research/Search → AI Router → Script/Titles/SEO → Thumbnail → Human Review → Private YouTube Upload
