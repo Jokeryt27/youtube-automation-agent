@@ -1,41 +1,36 @@
-# YouTube Automation Agent — Step 1
+# YouTube Automation Agent — Step 2
 
-Generate a **draft** YouTube script, 5 title options, description, tags, and a thumbnail prompt from one topic. A person must verify facts and approve everything before publication. **This version does not upload to YouTube.**
+Research-first YouTube workflow.
 
-## Requirements
+## Pipeline
 
-- Python 3.10 or later
-- Internet and a funded API account for AI generation (API usage may cost money)
-- No third-party Python packages required
+Topic → Research → Sources → Script → Titles → Description → Tags → Thumbnail Prompt → Human Review → Optional Upload
 
-## Quick test (free, no API key)
+## Preview mode
+
+No API key is needed:
 
 ```bash
-python agent.py "BGMI update" --preview
+python agent.py --preview "BGMI 4.3 Update"
 ```
 
-This prints a **template**, not an AI-generated script.
+## Live research
 
-## AI generation
+The research adapter expects a search API endpoint that returns JSON with a `results` array. Each result can contain:
 
-Set your API key **only on your own device** (do not commit it to GitHub):
+- `title`
+- `url`
+- `snippet` or `description`
 
-macOS/Linux:
-```bash
-export OPENAI_API_KEY="your-key-here"
-python agent.py "BGMI update" --language "Hindi / Hinglish" --channel "Little Toxic"
+Set these locally as environment variables:
+
+```text
+SEARCH_API_URL=
+SEARCH_API_KEY=
 ```
 
-Windows PowerShell:
-```powershell
-$env:OPENAI_API_KEY="your-key-here"
-python agent.py "BGMI update" --language "Hindi / Hinglish" --channel "Little Toxic"
-```
+Never commit real API keys to GitHub.
 
-Optional model selection: set `OPENAI_MODEL` to a model available to your API account. The default is `gpt-4.1-mini`.
+## Safety
 
-The package is saved in `output/content-package.json` (ignored by Git). Read `fact_check_notes` and independently verify all time-sensitive claims. No research or fact-checking API is connected in Step 1.
-
-## Upload to GitHub from mobile
-
-Open your repo → **Add file** → **Upload files** → upload the individual files from this ZIP (not the ZIP itself) → **Commit changes**. To replace `agent.py` on mobile, open the file → pencil/edit → paste the new content, or delete the old file and upload the replacement. Never upload API keys, `.env`, or generated private content.
+Research is supporting evidence, not automatic fact approval. Review sources, dates, and claims before publishing.

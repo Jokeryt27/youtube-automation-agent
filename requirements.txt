@@ -1,1 +1,1 @@
-# No external Python dependencies. Python 3.10+ required.
+# No third-party dependencies required for Step 2.\n
