@@ -1,1 +1,1 @@
-# No third-party dependencies in the starter version.
+# No external Python dependencies. Python 3.10+ required.

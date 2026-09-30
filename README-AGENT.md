@@ -1,18 +1,8 @@
-# Agent Plan
+# Agent roadmap
 
-## Planned workflow
+- [x] Step 1: AI script, 5 titles, description, tags, thumbnail prompt
+- [ ] Step 2: Research and source collection
+- [ ] Step 3: Human review UI
+- [ ] Step 4: Optional YouTube upload via OAuth, after explicit approval
 
-1. Accept a topic.
-2. Research current information and collect sources.
-3. Generate a structured script.
-4. Generate multiple title options.
-5. Generate description and tags.
-6. Generate a thumbnail prompt.
-7. Present everything for human review.
-8. Add optional YouTube upload integration after testing.
-
-## Important
-
-- Keep API keys in environment variables.
-- Verify factual claims before publishing.
-- Keep a human approval step before automatic publishing.
+The `--preview` mode produces a non-AI template. AI mode requires an API key and can incur charges. No automated publishing in this version.
