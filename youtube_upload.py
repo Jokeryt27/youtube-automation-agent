@@ -1,20 +1,34 @@
 """
-YouTube Automation Agent - Step 5
-Safe YouTube upload adapter.
+YouTube Automation Agent - Step 10
+Safe YouTube upload adapter with final human approval.
 
-This module uploads a video as PRIVATE by default.
-OAuth credentials/token handling is intentionally kept local and out of GitHub.
+The workflow:
+1. Validate local OAuth token
+2. Validate video file
+3. Request explicit human approval
+4. Continue only after APPROVE
+5. Keep upload PRIVATE by default
+
+OAuth credentials/tokens must remain local and must never be committed.
 """
 
 import json
 import os
 import sys
 from pathlib import Path
-from urllib.request import Request, urlopen
+
+from approval_gate import require_approval
 
 
-def upload_video(video_path: str, title: str, description: str, tags: list[str]):
+def upload_video(
+    video_path: str,
+    title: str,
+    description: str,
+    tags: list[str],
+):
+    # Credentials stay local and are never stored in GitHub.
     token = os.getenv("YOUTUBE_ACCESS_TOKEN", "").strip()
+
     if not token:
         raise RuntimeError(
             "YOUTUBE_ACCESS_TOKEN is not set. Configure OAuth locally; "
@@ -22,6 +36,7 @@ def upload_video(video_path: str, title: str, description: str, tags: list[str])
         )
 
     path = Path(video_path)
+
     if not path.is_file():
         raise FileNotFoundError(f"Video not found: {path}")
 
@@ -38,8 +53,33 @@ def upload_video(video_path: str, title: str, description: str, tags: list[str])
         },
     }
 
-    # This is a safe adapter placeholder. A production implementation should
-    # use Google's official resumable upload flow and OAuth 2.0 client library.
+    # ---------------------------------------------------------
+    # STEP 10: FINAL HUMAN APPROVAL
+    # ---------------------------------------------------------
+
+    approval = require_approval(
+        reviewer=os.getenv("APPROVAL_REVIEWER", "user"),
+        note=f"Approve private upload: {title}",
+    )
+
+    if not approval.approved:
+        raise PermissionError(
+            "Upload blocked: final human approval was rejected."
+        )
+
+    # ---------------------------------------------------------
+    # SAFE UPLOAD ADAPTER
+    # ---------------------------------------------------------
+    #
+    # This remains a safe placeholder.
+    # A production implementation should use Google's official
+    # resumable upload flow and OAuth 2.0 client library.
+    #
+    # Even when implemented, privacyStatus remains PRIVATE until
+    # the user explicitly changes the publishing workflow.
+    #
+
+    print("\nFINAL APPROVAL RECEIVED")
     print("READY FOR YOUTUBE UPLOAD")
     print(json.dumps(metadata, indent=2, ensure_ascii=False))
     print(f"Video file: {path}")
@@ -56,9 +96,19 @@ def main():
     video = sys.argv[1]
     title = sys.argv[2]
     description = sys.argv[3]
-    tags = [x.strip() for x in os.getenv("YOUTUBE_TAGS", "").split(",") if x.strip()]
 
-    upload_video(video, title, description, tags)
+    tags = [
+        x.strip()
+        for x in os.getenv("YOUTUBE_TAGS", "").split(",")
+        if x.strip()
+    ]
+
+    upload_video(
+        video_path=video,
+        title=title,
+        description=description,
+        tags=tags,
+    )
 
 
 if __name__ == "__main__":
